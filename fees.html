@@ -1,2 +1,90 @@
-<h1>School Fees Portal</h1>
-<p>Fee payment system will be upgraded soon with online payment integration.</p>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>School Fees Payment</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f2f2;
+            padding: 20px;
+        }
+
+        .box {
+            background: white;
+            padding: 20px;
+            max-width: 500px;
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        button {
+            background: green;
+            color: white;
+            padding: 10px;
+            border: none;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .receipt {
+            margin-top: 20px;
+            background: #e6ffe6;
+            padding: 10px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="box">
+    <h2>💳 School Fees Payment</h2>
+
+    <input type="text" id="name" placeholder="Student Name">
+    <input type="text" id="class" placeholder="Class">
+    
+    <select id="amount">
+        <option value="5000">Junior 1 - ₦5,000</option>
+        <option value="6000">Junior 2 - ₦6,000</option>
+        <option value="7000">Junior 3 - ₦7,000</option>
+    </select>
+
+    <button onclick="pay()">Pay Now</button>
+
+    <div id="receipt"></div>
+</div>
+
+<script>
+function pay() {
+    let name = document.getElementById("name").value;
+    let cls = document.getElementById("class").value;
+    let amount = document.getElementById("amount").value;
+
+    if(name === "" || cls === "") {
+        alert("Fill all fields");
+        return;
+    }
+
+    let ref = "SCH-" + Math.floor(Math.random() * 1000000);
+
+    document.getElementById("receipt").innerHTML =
+        "<div class='receipt'>" +
+        "<h3>Payment Successful ✅</h3>" +
+        "<p><b>Name:</b> " + name + "</p>" +
+        "<p><b>Class:</b> " + cls + "</p>" +
+        "<p><b>Amount:</b> ₦" + amount + "</p>" +
+        "<p><b>Receipt ID:</b> " + ref + "</p>" +
+        "</div>";
+}
+</script>
+
+</body>
+</html>
