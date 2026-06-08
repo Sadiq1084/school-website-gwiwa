@@ -4,41 +4,41 @@
     <title>School Fees Payment</title>
 
     <style>
-        body {
+        body{
             font-family: Arial;
-            background: #f2f2f2;
-            padding: 20px;
+            background:#f2f2f2;
+            padding:20px;
         }
 
-        .box {
-            background: white;
-            padding: 20px;
-            max-width: 500px;
-            margin: auto;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        .box{
+            background:white;
+            padding:20px;
+            max-width:500px;
+            margin:auto;
+            border-radius:10px;
+            box-shadow:0 0 10px rgba(0,0,0,0.1);
         }
 
-        input, select {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
+        input,select{
+            width:100%;
+            padding:10px;
+            margin:10px 0;
         }
 
-        button {
-            background: green;
-            color: white;
-            padding: 10px;
-            border: none;
-            width: 100%;
-            cursor: pointer;
+        button{
+            background:green;
+            color:white;
+            padding:10px;
+            border:none;
+            width:100%;
+            cursor:pointer;
         }
 
-        .receipt {
-            margin-top: 20px;
-            background: #e6ffe6;
-            padding: 10px;
-            border-radius: 8px;
+        .receipt{
+            background:#e6ffe6;
+            padding:10px;
+            margin-top:15px;
+            border-radius:8px;
         }
     </style>
 </head>
@@ -46,83 +46,97 @@
 <body>
 
 <div class="box">
-    <h2>💳 School Fees Payment</h2>
 
-    <input type="text" id="name" placeholder="Student Name">
-    <input type="text" id="class" placeholder="Class">
-    
-    <select id="amount">
-        <option value="5000">Junior 1 - ₦5,000</option>
-        <option value="6000">Junior 2 - ₦6,000</option>
-        <option value="7000">Junior 3 - ₦7,000</option>
-    </select>
+<h2>💳 School Fees Payment</h2>
 
-    <button onclick="pay()">Pay Now</button>
+<input type="text" id="name" placeholder="Student Name">
 
-    <div id="receipt"></div>
-</div>
-    <button onclick="viewPayments()">View All Payments</button>
+<input type="text" id="class" placeholder="Class">
+
+<select id="amount">
+<option value="5000">Junior 1 - ₦5,000</option>
+<option value="6000">Junior 2 - ₦6,000</option>
+<option value="7000">Junior 3 - ₦7,000</option>
+</select>
+
+<button onclick="pay()">Pay Now</button>
+
+<div id="receipt"></div>
+
+<button onclick="viewPayments()">
+View All Payments
+</button>
 
 <div id="allPayments"></div>
 
 <script>
-function pay() {
-    let name = document.getElementById("name").value;
-    let cls = document.getElementById("class").value;
-    let amount = document.getElementById("amount").value;
 
-    if(name === "" || cls === "") {
-        alert("Fill all fields");
-        return;
-    }
+function pay(){
 
-    let ref = "SCH-" + Math.floor(Math.random() * 1000000);
-let payment = {
-    name: name,
-    class: cls,
-    amount: amount,
-    ref: ref,
-    date: new Date().toLocaleString()
+let name=document.getElementById("name").value;
+
+let cls=document.getElementById("class").value;
+
+let amount=document.getElementById("amount").value;
+
+if(name==="" || cls===""){
+alert("Fill all fields");
+return;
+}
+
+let ref="SCH-"+Math.floor(Math.random()*1000000);
+
+let payment={
+name:name,
+class:cls,
+amount:amount,
+ref:ref,
+date:new Date().toLocaleString()
 };
 
-let payments = JSON.parse(localStorage.getItem("payments")) || [];
+let payments=JSON.parse(localStorage.getItem("payments")) || [];
 
 payments.push(payment);
 
-localStorage.setItem("payments", JSON.stringify(payments));
-    document.getElementById("receipt").innerHTML =
-        "<div class='receipt'>" +
-        "<h3>Payment Successful ✅</h3>" +
-        "<p><b>Name:</b> " + name + "</p>" +
-        "<p><b>Class:</b> " + cls + "</p>" +
-        "<p><b>Amount:</b> ₦" + amount + "</p>" +
-        "<p><b>Receipt ID:</b> " + ref + "</p>" +
-        "</div>";
+localStorage.setItem("payments",JSON.stringify(payments));
 
-function viewPayments() {
+document.getElementById("receipt").innerHTML=
+"<div class='receipt'>"+
+"<h3>Payment Successful ✅</h3>"+
+"<p><b>Name:</b> "+name+"</p>"+
+"<p><b>Class:</b> "+cls+"</p>"+
+"<p><b>Amount:</b> ₦"+amount+"</p>"+
+"<p><b>Receipt ID:</b> "+ref+"</p>"+
+"</div>";
 
-    let payments = JSON.parse(localStorage.getItem("payments")) || [];
+}
 
-    let output = "<h3>All Payments 📊</h3>";
+function viewPayments(){
 
-    payments.forEach(function(p) {
+let payments=JSON.parse(localStorage.getItem("payments")) || [];
 
-        output +=
-        "<div class='receipt'>" +
-        "<p><b>Name:</b> " + p.name + "</p>" +
-        "<p><b>Class:</b> " + p.class + "</p>" +
-        "<p><b>Amount:</b> ₦" + p.amount + "</p>" +
-        "<p><b>Ref:</b> " + p.ref + "</p>" +
-        "<p><b>Date:</b> " + p.date + "</p>" +
-        "</div>";
+let output="<h3>All Payments 📊</h3>";
 
-    });
+payments.forEach(function(p){
 
-    document.getElementById("allPayments").innerHTML = output;
+output +=
+"<div class='receipt'>"+
+"<p><b>Name:</b> "+p.name+"</p>"+
+"<p><b>Class:</b> "+p.class+"</p>"+
+"<p><b>Amount:</b> ₦"+p.amount+"</p>"+
+"<p><b>Receipt ID:</b> "+p.ref+"</p>"+
+"<p><b>Date:</b> "+p.date+"</p>"+
+"</div>";
+
+});
+
+document.getElementById("allPayments").innerHTML=output;
 
 }
 
 </script>
+
+</div>
 
 </body>
 </html>
