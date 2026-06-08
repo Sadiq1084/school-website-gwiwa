@@ -86,7 +86,30 @@ function pay() {
         "<p><b>Amount:</b> ₦" + amount + "</p>" +
         "<p><b>Receipt ID:</b> " + ref + "</p>" +
         "</div>";
+
+function viewPayments() {
+
+    let payments = JSON.parse(localStorage.getItem("payments")) || [];
+
+    let output = "<h3>All Payments 📊</h3>";
+
+    payments.forEach(function(p) {
+
+        output +=
+        "<div class='receipt'>" +
+        "<p><b>Name:</b> " + p.name + "</p>" +
+        "<p><b>Class:</b> " + p.class + "</p>" +
+        "<p><b>Amount:</b> ₦" + p.amount + "</p>" +
+        "<p><b>Ref:</b> " + p.ref + "</p>" +
+        "<p><b>Date:</b> " + p.date + "</p>" +
+        "</div>";
+
+    });
+
+    document.getElementById("allPayments").innerHTML = output;
+
 }
+
 </script>
 
 </body>
