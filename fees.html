@@ -77,7 +77,19 @@ function pay() {
     }
 
     let ref = "SCH-" + Math.floor(Math.random() * 1000000);
+let payment = {
+    name: name,
+    class: cls,
+    amount: amount,
+    ref: ref,
+    date: new Date().toLocaleString()
+};
 
+let payments = JSON.parse(localStorage.getItem("payments")) || [];
+
+payments.push(payment);
+
+localStorage.setItem("payments", JSON.stringify(payments));
     document.getElementById("receipt").innerHTML =
         "<div class='receipt'>" +
         "<h3>Payment Successful ✅</h3>" +
